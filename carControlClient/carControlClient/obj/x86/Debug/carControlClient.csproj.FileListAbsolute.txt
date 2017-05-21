@@ -5,3 +5,11 @@ C:\Users\Michi\AppData\Local\Temporary Projects\carControlClient\obj\x86\Debug\c
 C:\Users\Michi\AppData\Local\Temporary Projects\carControlClient\obj\x86\Debug\carControlClient.csproj.GenerateResource.Cache
 C:\Users\Michi\AppData\Local\Temporary Projects\carControlClient\obj\x86\Debug\carControlClient.exe
 C:\Users\Michi\AppData\Local\Temporary Projects\carControlClient\obj\x86\Debug\carControlClient.pdb
+C:\Users\Martin\Desktop\CarControl\carControlClient\carControlClient\obj\x86\Debug\carControlClient.exe
+C:\Users\Martin\Desktop\CarControl\carControlClient\carControlClient\obj\x86\Debug\carControlClient.pdb
+C:\Users\Martin\Desktop\CarControl\carControlClient\carControlClient\bin\Debug\carControlClient.exe
+C:\Users\Martin\Desktop\CarControl\carControlClient\carControlClient\bin\Debug\carControlClient.pdb
+C:\Users\Martin\Desktop\CarControl\carControlClient\carControlClient\obj\x86\Debug\carControlClient.GUI.resources
+C:\Users\Martin\Desktop\CarControl\carControlClient\carControlClient\obj\x86\Debug\carControlClient.Properties.Resources.resources
+C:\Users\Martin\Desktop\CarControl\carControlClient\carControlClient\obj\x86\Debug\carControlClient.csproj.GenerateResource.Cache
+C:\Users\Martin\Desktop\CarControl\carControlClient\carControlClient\obj\x86\Debug\carControlClient.csprojResolveAssemblyReference.cache
