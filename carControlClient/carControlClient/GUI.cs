@@ -1,25 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Net.Sockets;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
+using System.Windows.Forms;
+using MjpegProcessor;
 
 namespace carControlClient
 {
     public partial class GUI : Form
     {
         TcpClient car;
-        StreamReader strRea;
-        StreamWriter strWri;
         BinaryReader biRea;
         BinaryWriter biWri;
-        
+        bool right;
+        bool left;
+        bool up;
+        bool down;
+        MjpegProcessor.MjpegDecoder ImgGetter;
+
         public GUI()
         {
             InitializeComponent();
@@ -39,10 +38,10 @@ namespace carControlClient
                 MessageBox.Show("Keine gültige IP-Adresse!");
                 return false;
             }
-            car.Connect(Adresse, 9001);
+            String URL = "http://"+Adresse.ToString() + ":8090/test.mjpg";
+            try { car.Connect(Adresse, 9001); }
+            catch (Exception e) { MessageBox.Show("Verbindungsfehler Oo" + e.Message); return false; }
             Stream clst=car.GetStream();
-            strWri = new StreamWriter(clst);
-            strRea = new StreamReader(clst);
             biRea = new BinaryReader(clst);
             biWri = new BinaryWriter(clst);
             int Wert = biRea.ReadInt16();
@@ -52,6 +51,9 @@ namespace carControlClient
                 //Annehmen der Verbindung. Bei Verdacht (whyever XD) ein false senden!
                 biWri.Write(true);
                 lbStatus.Text = "Verbindung hergestellt. Viel Spaß! :D";
+                ImgGetter = new MjpegProcessor.MjpegDecoder();
+                ImgGetter.FrameReady += mjpeg_FrameReady;
+                ImgGetter.ParseStream(new Uri("http://" + textBox1.Text + ":8090/test.mjpg"));
                 return true;
             }
             return false;
@@ -59,35 +61,82 @@ namespace carControlClient
 
         private void GUI_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Right) lbRight.BackColor = Color.Green;
-            if (e.KeyCode == Keys.Left) lbLeft.BackColor = Color.Green;
-            if (e.KeyCode == Keys.Up) lbUp.BackColor = Color.Green;
-            if (e.KeyCode == Keys.Down) lbDown.BackColor = Color.Green;
-            e.Handled = true;
             switch (e.KeyCode)
             {
-                    //Hier mal die fallbehandlung rein sobald ich Internet habe...
-                default: break;
+                case(Keys.Left):
+                    if (left) break;
+                    lbLeft.BackColor = Color.Green;
+                    biWri.Write((Int16)(- 2));
+                    left = true;
+                    break;
+                case(Keys.Right):
+                    if (right) break;
+                    lbRight.BackColor = Color.Green;
+                    biWri.Write((Int16)2);
+                    right = true;
+                    break;
+                case(Keys.Up):
+                    if (up) break;
+                    lbUp.BackColor = Color.Green;
+                    biWri.Write((Int16)1);
+                    up = true;
+                    break;
+                case(Keys.Down):
+                    if (down) break;
+                    lbDown.BackColor = Color.Green;
+                    biWri.Write((Int16)(-1));
+                    down = true;
+                    break;
+                default: 
+                    lbStatus.Text = "Nicht belegte Taste: "+e.KeyCode.ToString();
+                    break;
             }
-        }
-
-        void MakeMove(int Richtung, int Wichtung)
-        {
-
+            e.Handled = true;
         }
 
         private void GUI_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Right) { lbRight.BackColor = Color.Transparent; }
-            if (e.KeyCode == Keys.Left) { lbLeft.BackColor = Color.Transparent; }
-            if (e.KeyCode == Keys.Up) { lbUp.BackColor = Color.Transparent; }
-            if (e.KeyCode == Keys.Down) { lbDown.BackColor = Color.Transparent; }
-            e.Handled = true;
+           
             switch (e.KeyCode)
             {
-                //Hier mal die fallbehandlung rein sobald ich Internet habe...
-                default: break;
+                case (Keys.Left):
+                    lbLeft.BackColor = Color.Transparent;
+                    biWri.Write((Int16)(2));
+                    left = false;
+                    break;
+                case (Keys.Right):
+                    lbRight.BackColor = Color.Transparent;
+                    biWri.Write((Int16)(-2));
+                    right = false;
+                    break;
+                case (Keys.Up):
+                    lbUp.BackColor = Color.Transparent;
+                    biWri.Write((Int16)(-1));
+                    up = false;
+                    break;
+                case (Keys.Down):
+                    lbDown.BackColor = Color.Transparent;
+                    biWri.Write((Int16)(1));
+                    down = false;
+                    break;
+                case(Keys.Enter):
+                    lbStatus.Text = "Reset/Tare-Funktion aktiviert";
+                    biWri.Write((Int16)0);
+                    break;
+                case (Keys.Delete):
+                    lbStatus.Text = "Autoanwendung beendet";
+                    biWri.Write((Int16)(-3));
+                    break;
+                default:
+                    lbStatus.Text = "Nicht belegte Taste: " + e.KeyCode.ToString();
+                    break;
             }
+            e.Handled = true;
+        }
+
+        private void mjpeg_FrameReady(object sender, FrameReadyEventArgs e)
+        {
+            pB1.Image = e.Bitmap;
         }
     }
 }

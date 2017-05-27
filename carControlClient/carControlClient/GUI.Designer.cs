@@ -35,6 +35,8 @@
             this.lbRight = new System.Windows.Forms.Label();
             this.lbDown = new System.Windows.Forms.Label();
             this.lbLeft = new System.Windows.Forms.Label();
+            this.pB1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pB1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -43,7 +45,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "127.0.0.1";
+            this.textBox1.Text = "192.168.137.79";
             // 
             // btConnect
             // 
@@ -67,7 +69,7 @@
             // lbUp
             // 
             this.lbUp.AutoSize = true;
-            this.lbUp.Location = new System.Drawing.Point(111, 106);
+            this.lbUp.Location = new System.Drawing.Point(116, 35);
             this.lbUp.Name = "lbUp";
             this.lbUp.Size = new System.Drawing.Size(13, 13);
             this.lbUp.TabIndex = 3;
@@ -76,7 +78,7 @@
             // lbRight
             // 
             this.lbRight.AutoSize = true;
-            this.lbRight.Location = new System.Drawing.Point(140, 125);
+            this.lbRight.Location = new System.Drawing.Point(145, 54);
             this.lbRight.Name = "lbRight";
             this.lbRight.Size = new System.Drawing.Size(13, 13);
             this.lbRight.TabIndex = 4;
@@ -85,7 +87,7 @@
             // lbDown
             // 
             this.lbDown.AutoSize = true;
-            this.lbDown.Location = new System.Drawing.Point(111, 149);
+            this.lbDown.Location = new System.Drawing.Point(116, 78);
             this.lbDown.Name = "lbDown";
             this.lbDown.Size = new System.Drawing.Size(13, 13);
             this.lbDown.TabIndex = 5;
@@ -94,17 +96,26 @@
             // lbLeft
             // 
             this.lbLeft.AutoSize = true;
-            this.lbLeft.Location = new System.Drawing.Point(77, 125);
+            this.lbLeft.Location = new System.Drawing.Point(82, 54);
             this.lbLeft.Name = "lbLeft";
             this.lbLeft.Size = new System.Drawing.Size(13, 13);
             this.lbLeft.TabIndex = 6;
             this.lbLeft.Text = "<";
             // 
+            // pB1
+            // 
+            this.pB1.Location = new System.Drawing.Point(0, 97);
+            this.pB1.Name = "pB1";
+            this.pB1.Size = new System.Drawing.Size(600, 480);
+            this.pB1.TabIndex = 7;
+            this.pB1.TabStop = false;
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(600, 577);
+            this.Controls.Add(this.pB1);
             this.Controls.Add(this.lbLeft);
             this.Controls.Add(this.lbDown);
             this.Controls.Add(this.lbRight);
@@ -117,6 +128,7 @@
             this.Text = "Lego-Piratenschiff-Auto Fernsteuerung";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GUI_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GUI_KeyUp);
+            ((System.ComponentModel.ISupportInitialize)(this.pB1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,6 +143,7 @@
         private System.Windows.Forms.Label lbRight;
         private System.Windows.Forms.Label lbDown;
         private System.Windows.Forms.Label lbLeft;
+        private System.Windows.Forms.PictureBox pB1;
     }
 }
 
