@@ -39,7 +39,8 @@ namespace carControlClient
                 return false;
             }
             String URL = "http://"+Adresse.ToString() + ":8090/test.mjpg";
-            car.Connect(Adresse, 9001);
+            try { car.Connect(Adresse, 9001); }
+            catch (Exception e) { MessageBox.Show("Verbindungsfehler Oo" + e.Message); return false; }
             Stream clst=car.GetStream();
             biRea = new BinaryReader(clst);
             biWri = new BinaryWriter(clst);
